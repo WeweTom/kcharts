@@ -68,12 +68,18 @@
     * */
    var init = function(){
      var container = S.get(this.get('renderTo'))
-        , width = D.width(container)
-        , height = D.height(container)
-        , paper = Raphael(container)
-        , isStatic = D.css(container,'position') == "static" ? true : false
+       , width = D.width(container)
+       , height = D.height(container)
+       , paper = Raphael(container)
+       , isStatic = D.css(container,'position') == "static" ? true : false
+       , series = this.get('series')
 
-      this.set({"paper":paper,width:width,height:height,container:container})
+     // 数据接口字段统一
+     if(series){
+       this.set("data",series);
+     }
+
+     this.set({"paper":paper,width:width,height:height,container:container})
 
      var cfg = this.userConfig;
        // 若没有cx|cy|r，则算一个默认的出来
@@ -213,7 +219,7 @@
      adjustData:function(){
        var fn = this.get('filterfn')
        if(fn && S.isFunction(fn)){
-         var data = this.get('series') || this.get("data")
+         var data = this.get("data")
            , ret
          ret = Util.filterdata(data,fn)
          this.set("data",ret);
