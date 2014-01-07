@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <link rel="stylesheet" href="http://a.tbcdn.cn/p/global/1.0/global-min.css" />
-    <title>简单饼图</title>
+    <title>饼图重绘的机制</title>
     <style type="text/css" media="screen">
      .pi-con{
        border:1px solid #999;width:750px;height:300px;margin:10px 0 0 10px;
@@ -23,6 +23,11 @@
   <body>
     <div id="J_Pie1" class="pi-con">
     </div>
+    <p>
+      <button id="J_Redraw">
+        重绘
+      </button>
+    </p>
     <script charset="utf-8" src="http://g.tbcdn.cn/kissy/k/1.4.1/seed-min.js"></script>
     <script type="text/javascript">
      KISSY.use("gallery/kcharts/1.3/piechart/index",function(S,Pie){
@@ -46,13 +51,20 @@
          var pie = new Pie(cfg);
          
          function refresh(){
-           // 数据更新，并重绘
-           pie.set("series",data);
+           // 1. 准备随机的数据
+           var series = [ 
+                         {label:"Chrome", data:Math.random() },
+                         { label:"FireFox", data: Math.random()*2},
+                         { label:"IE", data:Math.random()*3},
+                         { label:"Opera",data:Math.random()*4 },
+                         { label:"Safari", data:Math.random()*5 }];
+           // 2. 数据更新
+           pie.setConfig({series:series});
+           // 3. 重绘
            pie.render();
-         }
+         };
          
-         // 3s 更新一次数据
-         setInterval(refresh,3000);
+         S.one("#J_Redraw").on("click",refresh);
        }
        pie1();
        
