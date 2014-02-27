@@ -45,7 +45,7 @@
 	<script type="text/javascript" src="../../piechart/index.js"></script>
 	<!-- <script type="text/javascript" src="pie-bs.js"></script> -->
 	<script type="text/javascript">
-KISSY.use('gallery/kcharts/1.3/piechart/index,gallery/kcharts/1.1/tip/index', function (S, Pie, Tip) {
+KISSY.use('gallery/kcharts/1.3/piechart/index,gallery/kcharts/1.3/tip/index', function (S, Pie, Tip) {
     function pie1() {
         var Raphael = window.Raphael
         //使元素el的颜色变深
@@ -271,6 +271,7 @@ KISSY.use('gallery/kcharts/1.3/piechart/index,gallery/kcharts/1.1/tip/index', fu
             var sector = e.sector
             sector.fire("click");
         });
+
         pie.on("mouseover", function (e) {
             var sector = e.sector,
                 $path = sector.get("$path"),
@@ -329,7 +330,6 @@ KISSY.use('gallery/kcharts/1.3/piechart/index,gallery/kcharts/1.1/tip/index', fu
         pie.on("afterRender", drawCustomLabel);
 
         //绘制自定义的label
-
         function drawCustomLabel() {
             var that = pie;
             var sectors = that.get("$sectors"),
